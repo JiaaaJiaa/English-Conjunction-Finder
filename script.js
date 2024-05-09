@@ -57,8 +57,10 @@
         };
         
         var acceptedStates = new Set(['q3']);
+        var runButton = document.getElementById('runButton');
+        runButton.style.display = 'none';
 
-        
+
         let proceed = true;
 
         // Listen for the space key press
@@ -88,7 +90,7 @@
                     } else if (state in dfa && 'default' in dfa[state]) {
                         state = dfa[state]['default'];
                     } else {
-                        document.getElementById('status').innerHTML = 'Character: ' + char + ', No transition found. Word rejected.';
+                        document.getElementById('result').innerHTML = 'Character: ' + char + ', No transition found. Word rejected.';
                         callback(false, word); // Pass the word to the callback function
                         return;
                     }
@@ -99,10 +101,14 @@
                     setTimeout(loop, 0); // Delay next iteration
                 } else {
                     if (acceptedStates.has(state)) {
-                        document.getElementById('status').innerHTML = 'Word accepted.';
+                        var resultElement = document.getElementById('result');
+                        resultElement.innerHTML = 'The word "' + word + '" is accepted.';
+                        resultElement.style.color = ' #23C552'; // Set the text color to green
                         callback(true, word); // Pass the word to the callback function
                     } else {
-                        document.getElementById('status').innerHTML = 'No final state reached. Word rejected.';
+                        var resultElement = document.getElementById('result');
+                        resultElement.innerHTML = 'No final state reached. The word "' + word + '" is rejected.';
+                        resultElement.style.color = '#F84F31'; // Set the text color to red
                         callback(false, word); // Pass the word to the callback function
                     }
                 }
@@ -126,6 +132,8 @@
             var acceptedWordsPositions = []; // Array to store the positions of the accepted words
             var acceptedWordsCount = {}; // Object to store the count of accepted words
             var i = 0;
+
+            runButton.style.display = 'inline-block';
         
             (function loop() {
                 if (i < words.length) {
@@ -134,6 +142,8 @@
                         if (accepted) {
                             highlightedWords.push('<span class="highlight">' + words[i] + '</span>');
                             acceptedWordsPositions.push({word: word, position: i+1}); // Push the position to the array
+
+                            
         
                             // If the word is already in the object, increment its count
                             // Otherwise, add it to the object with a count of 1
@@ -164,6 +174,8 @@
             var fileInput = document.getElementById('fileInput');
             var dropZone = document.getElementById('drop_zone');
             var fileInputDiv = document.getElementById('fileInputDiv');
+
+
 
             // Handle file selection for both input and drop zone
             function handleFileSelect(evt) {
@@ -293,10 +305,10 @@
 
                     // After processing, return to the initial state
                     fileInputDiv.innerHTML = `
-                    <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
-                        Drop files here
-                        <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">                
-                    </div>`;     
+                        <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
+                            Drop files here or
+                            <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">                
+                        </div>`;     
                     fileInputDiv.style.animation = 'none';               
                     setupFileInputAndDropZone(); // Set up the new file input and drop zone               
                 });

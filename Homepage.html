@@ -12,7 +12,7 @@
 
 
         <!-- Wrap the file input element in a div -->
-        <div id="fileInputDiv" style="padding: 20px 20px 20px 20px; text-align: center; margin: 20px auto 20px auto;">
+        <div id="fileInputDiv" style=" text-align: center; margin: 20px auto 20px auto;">
             <!-- <p style="display: flex; justify-content: center; align-items: center; height: 100%;">OR</p>             -->
             <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
                 Drop files here or
@@ -21,12 +21,12 @@
         </div>
 
         <div style="margin: 20px; padding: 10px;">
-            <p id="paragraph"></p>
-            <p id="status"></p>
+            <button id="runButton">Run All</button>
+            <p id="paragraph">Your text will be displayed here</p>
+            <p id="status">Transition progress</p>
+            <p id="result">Status</p>
         </div>
 
-        <div id="info"></div>     
-        <!-- Wrap the boxes in a container -->
         <div id="infoContainer" style="display: flex; justify-content: space-around;">
 
             <div id="position">
@@ -35,7 +35,7 @@
             </div>
         
             <div id="occurence">
-                <h4>Occurence of the accepted word:</h2>
+                <h4>Occurrence of the accepted word:</h2>
                 <div id="occurenceinfo"></div>
             </div>
         </div>

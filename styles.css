@@ -43,18 +43,15 @@ p {
     text-align: justify;
 }
 
-#info {
+#paragraph {
     margin: 20px; 
     padding: 10px; 
     font-size: 18px; 
     color:  #141111;
-}
-
-#paragraph{
-    margin: 20px; 
-    padding: 10px; 
-    font-size: 18px; 
-    color:  #141111;
+    background-color: white; /* Add a white background color */
+    border-radius: 10px; /* Add a rounded border */
+    box-shadow: 3px 3px 6px #EFE0DC; /* Add a drop shadow */
+    border-color: #92ccdd;
 }
 
 #status{
@@ -62,7 +59,21 @@ p {
     padding: 10px; 
     font-size: 18px; 
     color:  #141111;
+    background-color: white; /* Add a white background color */
+    border-radius: 10px; /* Add a rounded border */
+    box-shadow: 3px 3px 6px #EFE0DC; /* Add a drop shadow */
+    border-color: #92ccdd;
+}
 
+#result{
+    margin: 20px; 
+    padding: 10px; 
+    font-size: 18px; 
+    color:  #141111;
+    background-color: white; /* Add a white background color */
+    border-radius: 10px; /* Add a rounded border */
+    box-shadow: 3px 3px 6px #EFE0DC; /* Add a drop shadow */
+    border-color: #92ccdd;
 }
 
 #position{
