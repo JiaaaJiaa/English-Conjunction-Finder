@@ -23,6 +23,7 @@ body {
     top: 0;
     margin-left: 0; /* Add this line */
     margin-right: 0; /* Add this line */
+    z-index:500;
 }
 .navbar h2 {
     float: left;
@@ -52,6 +53,7 @@ p {
     border-radius: 10px; /* Add a rounded border */
     box-shadow: 3px 3px 6px #EFE0DC; /* Add a drop shadow */
     border-color: #92ccdd;
+
 }
 
 #status{
@@ -112,6 +114,64 @@ footer{
     padding: 10px;
     font-family:'verdana';
 
+}
+
+#instruction {
+    background-color: #FFF2EE; /* Light gray background */
+    padding: 20px; /* 20px padding */
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 10px; /* Rounded corners */
+    width: 80%; /* Take up 80% of its parent's width */
+    margin: 30px auto; /* Center the div */
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    font-family:'verdana';
+}
+
+#instruction h3 {
+    color: #000000; /* Dark gray color */
+    text-align: center; /* Center the text */
+    font-family:'verdana';
+}
+
+#instruction p {
+    color:#000000; /* Medium gray color */
+    line-height: 1.0; /* Space out the lines a bit */
+    font-family:'verdana';
+}
+
+#runButton {
+  margin-left:20px;
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 10px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+#runButton:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+#runButton:hover {
+  background-color: #2c974b;
 }
 
 @keyframes blink {

@@ -60,12 +60,19 @@
         var runButton = document.getElementById('runButton');
         runButton.style.display = 'none';
 
+        let clickedButton = false;
+
+        document.getElementById('runButton').addEventListener('click', function() {
+            clickedButton = true;
+            proceed = true;
+            // Your code here. This will be executed when the button is clicked.
+        });
 
         let proceed = true;
 
         // Listen for the space key press
         document.addEventListener('keydown', function(event) {
-            if (event.code === 'Space') {
+            if (event.code === 'Enter') {
                 proceed = true;
             }
         });
@@ -114,7 +121,11 @@
                 }
         
                 // Reset the proceed flag at the end of each iteration
-                proceed = false;   
+                if(clickedButton){
+                    proceed = true;
+                }else{
+                    proceed = false;  
+                }
             })();
         }
 
@@ -141,9 +152,7 @@
                     isAccepted(word, function(accepted) {
                         if (accepted) {
                             highlightedWords.push('<span class="highlight">' + words[i] + '</span>');
-                            acceptedWordsPositions.push({word: word, position: i+1}); // Push the position to the array
-
-                            
+                            acceptedWordsPositions.push({word: word, position: i+1}); // Push the position to the array                         
         
                             // If the word is already in the object, increment its count
                             // Otherwise, add it to the object with a count of 1
@@ -175,6 +184,7 @@
             var dropZone = document.getElementById('drop_zone');
             var fileInputDiv = document.getElementById('fileInputDiv');
 
+            clickedButton = false;
 
 
             // Handle file selection for both input and drop zone
@@ -196,6 +206,7 @@
                 positionsDiv.innerHTML = '';
                 occurenceDiv.innerHTML = '';
                 proceed = true
+
 
                 // Only process .txt files.
                 if (!file.type.match('text.*')) {
