@@ -231,6 +231,9 @@
                     console.log('Positions of accepted words: ', acceptedWordsPositions); // Log the positions  
                     console.log('Count of accepted words: ', acceptedWordsCount); // Log the counts
 
+                    //===================================================
+                    // Display the positions and the count in a table
+                    //===================================================
                     // Select the paragraph elements
                     var positionsDiv = document.getElementById('positioninfo');
                     var occurenceDiv = document.getElementById('occurenceinfo');
@@ -313,7 +316,9 @@
                     // Append the table to the occurenceP div
                     occurenceDiv.appendChild(occurenceTable);
 
+                    //===================================================
                     // After processing, return to the initial state
+                    //===================================================
                     fileInputDiv.innerHTML = `
                         <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
                             Drop files here or
