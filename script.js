@@ -57,6 +57,9 @@
         };
         
         var acceptedStates = new Set(['q3']);
+
+        // Hide the run button initially
+        // OnClick event for the run button
         var runButton = document.getElementById('runButton');
         runButton.style.display = 'none';
 
@@ -68,6 +71,7 @@
             // Your code here. This will be executed when the button is clicked.
         });
 
+        // Variable to control the loop
         let proceed = true;
 
         // Listen for the space key press
@@ -76,6 +80,8 @@
                 proceed = true;
             }
         });
+
+        // Function to check if a word is accepted by the DFA
 
         function isAccepted(word, callback, highlightCallback) {
             var state = 'q0'; // Set the initial state
@@ -129,14 +135,7 @@
             })();
         }
 
-        function callback(isAccepted, word) {
-            if (isAccepted) {
-                console.log('The word "' + word + '" is accepted.');
-            } else {
-                console.log('The word "' + word + '" is rejected.');
-            }
-        }
-
+        // Function to highlight the accepted words in a paragraph
         function highlightAcceptedWords(paragraph, callback) {
             var words = paragraph.split(' ');
             var highlightedWords = [];
@@ -146,6 +145,7 @@
 
             runButton.style.display = 'inline-block';
         
+            // Use a self-invoking function to create a loop with delay
             (function loop() {
                 if (i < words.length) {
                     var word = words[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/<br>/g, "");
@@ -179,6 +179,7 @@
             })();
         }
 
+        // Function to set up the file input and drop zone
         function setupFileInputAndDropZone() {
             var fileInput = document.getElementById('fileInput');
             var dropZone = document.getElementById('drop_zone');
@@ -243,8 +244,6 @@
                     // table.style.border = '1px solid black'; // Add a border
                     table.style.textAlign = 'center'; // Center the text
 
-
-                    
                     // Create table header
                     var thead = document.createElement('thead');
                     // thead.style.backgroundColor = '#f2f2f2'; // Add a background color to the header
