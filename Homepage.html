@@ -43,6 +43,13 @@
             text-align: justify;
         }
 
+        #info {
+            padding: 15px; /* 15px padding */
+            margin: 10px 0; /* 10px top and bottom margin, 0 left and right margin */
+            font-family: Arial, sans-serif; /* Arial font */
+            font-size: 14px; /* 14px font size */
+        }
+
         @keyframes blink {
             0% {opacity: 1;}
             50% {opacity: 0;}
@@ -60,10 +67,10 @@
 
         <!-- Wrap the file input element in a div -->
         <div id="fileInputDiv" style="padding: 20px 20px 20px 20px; text-align: center; margin: 20px auto 20px auto;">
-            <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">
-            <p style="display: flex; justify-content: center; align-items: center; height: 100%;">OR</p>            
-            <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color: #aaa; font-size: 16px;">
+            <!-- <p style="display: flex; justify-content: center; align-items: center; height: 100%;">OR</p>             -->
+            <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
                 Drop files here
+                <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">                
             </div>
         </div>
 
@@ -71,6 +78,8 @@
             <p id="paragraph" style="margin: 20px; padding: 10px; font-size: 18px; line-height: 1.6; color:  #141111;"></p>
             <p id="status" style="margin: 20px; padding: 10px; font-size: 18px; line-height: 1.6; color:  #141111;"></p>
         </div>
+
+        <div id="info"></div>
 
     <script src="script.js"></script>
 </body>

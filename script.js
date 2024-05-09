@@ -80,7 +80,7 @@
                     document.getElementById('status').innerHTML = 'Character: ' + char + ', New state: ' + state;
                     highlightCallback(i, acceptedStates.has(state)); // Highlight the current character
                     i++;
-                    setTimeout(loop, 70); // Delay next iteration
+                    setTimeout(loop, 0); // Delay next iteration
                 } else {
                     if (acceptedStates.has(state)) {
                         document.getElementById('status').innerHTML = 'Word accepted.';
@@ -96,6 +96,8 @@
         function highlightAcceptedWords(paragraph, callback) {
             var words = paragraph.split(' ');
             var highlightedWords = [];
+            var acceptedWordsPositions = []; // Array to store the positions of the accepted words
+            var acceptedWordsCount = {}; // Object to store the count of accepted words
             var i = 0;
         
             (function loop() {
@@ -104,6 +106,15 @@
                     isAccepted(word, function(accepted) {
                         if (accepted) {
                             highlightedWords.push('<span class="highlight">' + words[i] + '</span>');
+                            acceptedWordsPositions.push(i+1); // Push the position to the array
+        
+                            // If the word is already in the object, increment its count
+                            // Otherwise, add it to the object with a count of 1
+                            if (acceptedWordsCount[word]) {
+                                acceptedWordsCount[word]++;
+                            } else {
+                                acceptedWordsCount[word] = 1;
+                            }
                         } else {
                             highlightedWords.push(words[i]);
                         }
@@ -117,10 +128,10 @@
                         document.getElementById('paragraph').innerHTML = highlightedWords.join(' ') + ' ' + highlightedWord + ' ' + words.slice(i + 1).join(' ');
                     });
                 } else {
-                    callback(highlightedWords.join(' '));
+                    callback(highlightedWords.join(' '), acceptedWordsPositions, acceptedWordsCount); // Pass the positions and the count object to the callback
                 }
             })();
-        }  
+        }
 
         function setupFileInputAndDropZone() {
             var fileInput = document.getElementById('fileInput');
@@ -147,6 +158,7 @@
                 // Update the status text
                 fileInputDiv.textContent = 'Reading ' + file.name;
                 fileInputDiv.style.color = '#141111';
+                fileInputDiv.style.fontSize = '30px';
                 fileInputDiv.style.animation = 'blink 2s infinite';
 
                 var reader = new FileReader();
@@ -154,15 +166,36 @@
                     var contents = e.target.result;
 
                     // Call your function with the file contents
-                    highlightAcceptedWords(contents, function(highlightedParagraph) {
-                        document.getElementById('paragraph').innerHTML = highlightedParagraph;    
+                    highlightAcceptedWords(contents, function(highlightedParagraph, acceptedWordsPositions, acceptedWordsCount) {
+                        document.getElementById('paragraph').innerHTML = highlightedParagraph;  
+                        console.log('Positions of accepted words: ', acceptedWordsPositions); // Log the positions  
+                        console.log('Count of accepted words: ', acceptedWordsCount); // Log the counts
+
+                        // Select the info div
+                        var infoDiv = document.getElementById('info');
+
+                        // Create a new paragraph to display the positions
+                        var positionsP = document.createElement('p');
+                        positionsP.textContent = 'Positions of accepted words: ' + acceptedWordsPositions.join(', ');
+                        infoDiv.appendChild(positionsP);
+
+                        // Create a new paragraph to display the header
+                        var headerP = document.createElement('p');
+                        headerP.textContent = 'Occurrence:';
+                        infoDiv.appendChild(headerP);
+
+                        // Create a new paragraph for each word and its count
+                        for (var word in acceptedWordsCount) {
+                            var countP = document.createElement('p');
+                            countP.textContent = word + ': ' + acceptedWordsCount[word];
+                            infoDiv.appendChild(countP);
+                        }
+
                         // After processing, return to the initial state
-                        
                         fileInputDiv.innerHTML = `
-                        <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">
-                        <p style="display: flex; justify-content: center; align-items: center; height: 100%;">OR</p>            
-                        <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color: #aaa; font-size: 16px;">
+                        <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
                             Drop files here
+                            <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">                
                         </div>`;     
                         fileInputDiv.style.animation = 'none';               
                         setupFileInputAndDropZone(); // Set up the new file input and drop zone               
