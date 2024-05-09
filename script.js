@@ -58,6 +58,16 @@
         
         var acceptedStates = new Set(['q3']);
 
+        
+        let proceed = true;
+
+        // Listen for the space key press
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                proceed = true;
+            }
+        });
+
         function isAccepted(word, callback, highlightCallback) {
             var state = 'q0'; // Set the initial state
             word = word.toLowerCase(); // Convert the word to lowercase
@@ -65,6 +75,12 @@
         
             // Use a self-invoking function to create a loop with delay
             (function loop() {
+                if (!proceed) {
+                    // If the space key hasn't been pressed, end this iteration
+                    requestAnimationFrame(loop);
+                    return;
+                }
+        
                 if (i < word.length) {
                     var char = word[i];
                     if (state in dfa && char in dfa[state]) {
@@ -73,7 +89,7 @@
                         state = dfa[state]['default'];
                     } else {
                         document.getElementById('status').innerHTML = 'Character: ' + char + ', No transition found. Word rejected.';
-                        callback(false);
+                        callback(false, word); // Pass the word to the callback function
                         return;
                     }
                     // Update the interface with the current state
@@ -84,13 +100,24 @@
                 } else {
                     if (acceptedStates.has(state)) {
                         document.getElementById('status').innerHTML = 'Word accepted.';
-                        callback(true);
+                        callback(true, word); // Pass the word to the callback function
                     } else {
                         document.getElementById('status').innerHTML = 'No final state reached. Word rejected.';
-                        callback(false);
+                        callback(false, word); // Pass the word to the callback function
                     }
                 }
+        
+                // Reset the proceed flag at the end of each iteration
+                proceed = false;   
             })();
+        }
+
+        function callback(isAccepted, word) {
+            if (isAccepted) {
+                console.log('The word "' + word + '" is accepted.');
+            } else {
+                console.log('The word "' + word + '" is rejected.');
+            }
         }
 
         function highlightAcceptedWords(paragraph, callback) {
@@ -156,6 +183,7 @@
                 // Clear the divs
                 positionsDiv.innerHTML = '';
                 occurenceDiv.innerHTML = '';
+                proceed = true
 
                 // Only process .txt files.
                 if (!file.type.match('text.*')) {
@@ -224,13 +252,6 @@
 
                     // Append the table to the positionsP div
                     positionsDiv.appendChild(table);
-
-                    // // Display the occurrences
-                    // for (var word in acceptedWordsCount) {
-                    //     var countP = document.createElement('p');
-                    //     countP.textContent = word + ': ' + acceptedWordsCount[word];
-                    //     occurenceP.appendChild(countP);
-                    // }
 
                     // Create a table for occurrences
                     var occurenceTable = document.createElement('table');
