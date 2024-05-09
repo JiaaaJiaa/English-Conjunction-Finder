@@ -196,7 +196,7 @@
                     
                     // Create table header
                     var thead = document.createElement('thead');
-                    thead.style.backgroundColor = '#f2f2f2'; // Add a background color to the header
+                    // thead.style.backgroundColor = '#f2f2f2'; // Add a background color to the header
 
                     var headerRow = document.createElement('tr');
                     var wordHeader = document.createElement('th');
