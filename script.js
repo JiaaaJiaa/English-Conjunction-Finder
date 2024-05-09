@@ -106,7 +106,7 @@
                     isAccepted(word, function(accepted) {
                         if (accepted) {
                             highlightedWords.push('<span class="highlight">' + words[i] + '</span>');
-                            acceptedWordsPositions.push(i+1); // Push the position to the array
+                            acceptedWordsPositions.push({word: word, position: i+1}); // Push the position to the array
         
                             // If the word is already in the object, increment its count
                             // Otherwise, add it to the object with a count of 1
@@ -120,7 +120,7 @@
                         }
                         i++;
                         loop();
-                    }, function(charIndex, isAccepted) {
+                    }, function(charIndex) {
                         // Update the paragraph to highlight the current character
                         var highlightedWord = words[i].substr(0, charIndex) +
                             '<span class="current">' + words[i][charIndex] + '</span>' +
@@ -148,6 +148,14 @@
                 } else {
                     file = evt.target.files[0];
                 }
+                                    
+                // Select the paragraph elements
+                var positionsDiv = document.getElementById('positioninfo');
+                var occurenceDiv = document.getElementById('occurenceinfo');
+
+                // Clear the divs
+                positionsDiv.innerHTML = '';
+                occurenceDiv.innerHTML = '';
 
                 // Only process .txt files.
                 if (!file.type.match('text.*')) {
@@ -165,41 +173,112 @@
                 reader.onload = function(e) {
                     var contents = e.target.result;
 
-                    // Call your function with the file contents
-                    highlightAcceptedWords(contents, function(highlightedParagraph, acceptedWordsPositions, acceptedWordsCount) {
-                        document.getElementById('paragraph').innerHTML = highlightedParagraph;  
-                        console.log('Positions of accepted words: ', acceptedWordsPositions); // Log the positions  
-                        console.log('Count of accepted words: ', acceptedWordsCount); // Log the counts
+                // Call your function with the file contents
+                highlightAcceptedWords(contents, function(highlightedParagraph, acceptedWordsPositions, acceptedWordsCount) {
+                    document.getElementById('paragraph').innerHTML = highlightedParagraph;  
+                    console.log('Positions of accepted words: ', acceptedWordsPositions); // Log the positions  
+                    console.log('Count of accepted words: ', acceptedWordsCount); // Log the counts
 
-                        // Select the info div
-                        var infoDiv = document.getElementById('info');
+                    // Select the paragraph elements
+                    var positionsDiv = document.getElementById('positioninfo');
+                    var occurenceDiv = document.getElementById('occurenceinfo');
 
-                        // Create a new paragraph to display the positions
-                        var positionsP = document.createElement('p');
-                        positionsP.textContent = 'Positions of accepted words: ' + acceptedWordsPositions.join(', ');
-                        infoDiv.appendChild(positionsP);
+                    // Create a table
+                    var table = document.createElement('table');
 
-                        // Create a new paragraph to display the header
-                        var headerP = document.createElement('p');
-                        headerP.textContent = 'Occurrence:';
-                        infoDiv.appendChild(headerP);
+                    // Add styles to the table
+                    table.style.width = '100%';
+                    table.style.borderCollapse = 'collapse';
+                    // table.style.border = '1px solid black'; // Add a border
+                    table.style.textAlign = 'center'; // Center the text
 
-                        // Create a new paragraph for each word and its count
-                        for (var word in acceptedWordsCount) {
-                            var countP = document.createElement('p');
-                            countP.textContent = word + ': ' + acceptedWordsCount[word];
-                            infoDiv.appendChild(countP);
-                        }
 
-                        // After processing, return to the initial state
-                        fileInputDiv.innerHTML = `
-                        <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
-                            Drop files here
-                            <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">                
-                        </div>`;     
-                        fileInputDiv.style.animation = 'none';               
-                        setupFileInputAndDropZone(); // Set up the new file input and drop zone               
+                    
+                    // Create table header
+                    var thead = document.createElement('thead');
+                    thead.style.backgroundColor = '#f2f2f2'; // Add a background color to the header
+
+                    var headerRow = document.createElement('tr');
+                    var wordHeader = document.createElement('th');
+                    wordHeader.textContent = 'Word';
+                    var positionHeader = document.createElement('th');
+                    positionHeader.textContent = 'Position';
+                    headerRow.appendChild(wordHeader);
+                    headerRow.appendChild(positionHeader);
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+
+                    // Create table body
+                    var tbody = document.createElement('tbody');
+                    acceptedWordsPositions.forEach(obj => {
+                        var row = document.createElement('tr');
+                        var wordCell = document.createElement('td');
+                        wordCell.textContent = obj.word;
+                        var positionCell = document.createElement('td');
+                        positionCell.textContent = obj.position;
+                        row.appendChild(wordCell);
+                        row.appendChild(positionCell);
+                        tbody.appendChild(row);
                     });
+                    table.appendChild(tbody);
+
+                    // Append the table to the positionsP div
+                    positionsDiv.appendChild(table);
+
+                    // // Display the occurrences
+                    // for (var word in acceptedWordsCount) {
+                    //     var countP = document.createElement('p');
+                    //     countP.textContent = word + ': ' + acceptedWordsCount[word];
+                    //     occurenceP.appendChild(countP);
+                    // }
+
+                    // Create a table for occurrences
+                    var occurenceTable = document.createElement('table');
+
+                    // Style the table
+                    occurenceTable.style.width = '100%';
+                    occurenceTable.style.borderCollapse = 'collapse';
+                    // occurenceTable.style.border = '1px solid black';
+                    occurenceTable.style.textAlign = 'center';
+
+                    // Create table header
+                    var occurenceThead = document.createElement('thead');
+                    var occurenceHeaderRow = document.createElement('tr');
+                    var occurenceWordHeader = document.createElement('th');
+                    occurenceWordHeader.textContent = 'Word';
+                    var occurenceCountHeader = document.createElement('th');
+                    occurenceCountHeader.textContent = 'Occurrence';
+                    occurenceHeaderRow.appendChild(occurenceWordHeader);
+                    occurenceHeaderRow.appendChild(occurenceCountHeader);
+                    occurenceThead.appendChild(occurenceHeaderRow);
+                    occurenceTable.appendChild(occurenceThead);
+
+                    // Create table body
+                    var occurenceTbody = document.createElement('tbody');
+                    for (var word in acceptedWordsCount) {
+                        var occurenceRow = document.createElement('tr');
+                        var occurenceWordCell = document.createElement('td');
+                        occurenceWordCell.textContent = word;
+                        var occurenceCountCell = document.createElement('td');
+                        occurenceCountCell.textContent = acceptedWordsCount[word];
+                        occurenceRow.appendChild(occurenceWordCell);
+                        occurenceRow.appendChild(occurenceCountCell);
+                        occurenceTbody.appendChild(occurenceRow);
+                    }
+                    occurenceTable.appendChild(occurenceTbody);
+
+                    // Append the table to the occurenceP div
+                    occurenceDiv.appendChild(occurenceTable);
+
+                    // After processing, return to the initial state
+                    fileInputDiv.innerHTML = `
+                    <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color:#141111; font-size: 16px;">
+                        Drop files here
+                        <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">                
+                    </div>`;     
+                    fileInputDiv.style.animation = 'none';               
+                    setupFileInputAndDropZone(); // Set up the new file input and drop zone               
+                });
                 };
                 reader.readAsText(file);
             }

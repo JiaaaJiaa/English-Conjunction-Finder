@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    padding: 0;
+    background:	#c7eff0;
+}
+
+.highlight {
+    background-color: lime; /* color for accepted words */
+    color: #000000;
+}
+.current {
+    background-color: orange; /* color for currently processed character */
+}
+
+.navbar {
+    background: linear-gradient(to top,#c7eff0, #92ccdd);
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    margin-left: 0; /* Add this line */
+    margin-right: 0; /* Add this line */
+}
+.navbar h2 {
+    float: left;
+    display: block;
+    color: #141111;
+    text-align: center;
+    margin-left: 40px;
+    padding: 10px 16px 10px ;
+    text-decoration: none;
+    font-family:'verdana';
+}
+
+p {
+    text-align: justify;
+}
+
+#myParagraph {
+    text-align: justify;
+}
+
+#info {
+    margin: 20px; 
+    padding: 10px; 
+    font-size: 18px; 
+    color:  #141111;
+}
+
+#paragraph{
+    margin: 20px; 
+    padding: 10px; 
+    font-size: 18px; 
+    color:  #141111;
+}
+
+#status{
+    margin: 20px; 
+    padding: 10px; 
+    font-size: 18px; 
+    color:  #141111;
+
+}
+
+#position{
+    width: 500px; 
+    height: auto; 
+    border-radius: 20px; /* Make the border rounder */
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Add a drop shadow */
+    background-color: #f0f0f0;
+    text-align: center;
+    font-family:'verdana';
+    padding: 10px;
+    margin:10px;
+}
+
+#occurence{
+    width: 500px; 
+    height: auto; 
+    border-radius: 20px; /* Make the border rounder */
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Add a drop shadow */
+    background-color: #f0f0f0;
+    text-align: center;
+    font-family:'verdana';
+    padding: 10px;
+    margin:10px;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+    }
