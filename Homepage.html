@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background:	#c7eff0;
+        }
+
+        .highlight {
+            background-color: lime; /* color for accepted words */
+            color: #000000;
+        }
+        .current {
+            background-color: orange; /* color for currently processed character */
+        }
+
+        .navbar {
+            background: linear-gradient(to top,#c7eff0, #92ccdd);
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            margin-left: 0; /* Add this line */
+            margin-right: 0; /* Add this line */
+        }
+        .navbar h2 {
+            float: left;
+            display: block;
+            color: #141111;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-family:'verdana';
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        #myParagraph {
+            text-align: justify;
+        }
+
+        @keyframes blink {
+            0% {opacity: 1;}
+            50% {opacity: 0;}
+            100% {opacity: 1;}
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <h2>English Conjunction Finder</h2>
+    </div>
+
+
+        <!-- Wrap the file input element in a div -->
+        <div id="fileInputDiv" style="padding: 20px 20px 20px 20px; text-align: center; margin: 20px auto 20px auto;">
+            <input type="file" id="fileInput" accept=".txt" style="margin: 20px auto; padding: 10px; font-size: 16px; color:  #141111;">
+            <p style="display: flex; justify-content: center; align-items: center; height: 100%;">OR</p>            
+            <div id="drop_zone" style="border: 2px dashed #aaa; padding: 10px 10px 10px 10px; text-align: center; margin: 20px auto 20px auto; width: 50%; height: 100px; line-height: 100px; color: #aaa; font-size: 16px;">
+                Drop files here
+            </div>
+        </div>
+
+        <div style="margin: 20px; padding: 10px;">
+            <p id="paragraph" style="margin: 20px; padding: 10px; font-size: 18px; line-height: 1.6; color:  #141111;"></p>
+            <p id="status" style="margin: 20px; padding: 10px; font-size: 18px; line-height: 1.6; color:  #141111;"></p>
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
