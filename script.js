@@ -91,7 +91,7 @@
             // Use a self-invoking function to create a loop with delay
             (function loop() {
                 if (!proceed) {
-                    // If the space key hasn't been pressed, end this iteration
+                    // If the Enter key hasn't been pressed, end this iteration
                     requestAnimationFrame(loop);
                     return;
                 }
