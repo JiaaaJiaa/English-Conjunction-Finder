@@ -1,4 +1,4 @@
-// Define the DFA
+        // Define the DFA
         // after, although, and, as, because, before, but, 
         // for, if, nor, or, since, so, than, that, though, 
         // till, until, when, yet
@@ -68,13 +68,12 @@
         document.getElementById('runButton').addEventListener('click', function() {
             clickedButton = true;
             proceed = true;
-            // Your code here. This will be executed when the button is clicked.
         });
 
         // Variable to control the loop
         let proceed = true;
 
-        // Listen for the space key press
+        // Listen for the enter key press
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Enter') {
                 proceed = true;
@@ -208,7 +207,6 @@
                 occurenceDiv.innerHTML = '';
                 proceed = true
 
-
                 // Only process .txt files.
                 if (!file.type.match('text.*')) {
                     alert("Only .txt files are accepted");
@@ -244,13 +242,10 @@
                     // Add styles to the table
                     table.style.width = '100%';
                     table.style.borderCollapse = 'collapse';
-                    // table.style.border = '1px solid black'; // Add a border
                     table.style.textAlign = 'center'; // Center the text
 
                     // Create table header
                     var thead = document.createElement('thead');
-                    // thead.style.backgroundColor = '#f2f2f2'; // Add a background color to the header
-
                     var headerRow = document.createElement('tr');
                     var wordHeader = document.createElement('th');
                     wordHeader.textContent = 'Word';
@@ -275,7 +270,7 @@
                     });
                     table.appendChild(tbody);
 
-                    // Append the table to the positionsP div
+                    // Append the table to the positionsDiv
                     positionsDiv.appendChild(table);
 
                     // Create a table for occurrences
@@ -284,7 +279,6 @@
                     // Style the table
                     occurenceTable.style.width = '100%';
                     occurenceTable.style.borderCollapse = 'collapse';
-                    // occurenceTable.style.border = '1px solid black';
                     occurenceTable.style.textAlign = 'center';
 
                     // Create table header
