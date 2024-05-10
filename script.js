@@ -137,7 +137,7 @@
 
         // Function to highlight the accepted words in a paragraph
         function highlightAcceptedWords(paragraph, callback) {
-            var words = paragraph.split(' ');
+            var words = paragraph.match(/\b[\w'-]+[.,\/#!$%\^&\;:{}=\_`~()]?|[\s][.,\/#!$%\^&\;:{}=\_`~()]/g);            
             var highlightedWords = [];
             var acceptedWordsPositions = []; // Array to store the positions of the accepted words
             var acceptedWordsCount = {}; // Object to store the count of accepted words
